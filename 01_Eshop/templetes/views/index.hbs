@@ -25,10 +25,10 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
      <script>
 
-        $(document).ready(function(){
+        {{!-- $(document).ready(function(){
 
-        })
-
+        }) --}}
+{{!-- 
         function addCart(pid)
         {
            
@@ -36,7 +36,22 @@
               alert(rt)
            })
            
-        }
+        } --}}
+
+
+        const addCart = (pid) => {
+       let data = document.cookie  {{!-- get cookie --}}
+       console.log(data)
+
+       if(data){
+       $.get("add_cart",{pid},function(rt){
+            alert(rt)
+       });
+
+       }else{
+        window.location.href = "http://localhost:8000/Login";
+       }
+     }
     </script>
 </head>
 

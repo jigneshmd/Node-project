@@ -143,10 +143,11 @@
                     <div class="cart__total__procced">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>Rs.{{total}}</span></li>
-                            <li>Total <span>Rs.{{total}}</span></li>
+                            {{!-- <li>Subtotal. RS<span>{{total}}</span></li> --}}
+                            <li>Total Rs.</li>
+                            <li id="amt"><span>{{total}}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <button class="btn btn-block btn-danger" id="rzp-button1">Proceed to checkout</button>
                     </div>
                 </div>
             </div>
@@ -248,6 +249,54 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/jquery.nicescroll.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+
+     document.getElementById('rzp-button1').onclick = function(e){
+      e.preventDefault(); 
+
+    const amt = document.getElementById("amt").textContent
+    fetch("http://127.0.0.1:8000/payment?amt="+amt).then(data =>{
+        return data.json()
+    }).then(result =>{
+
+        var options = {
+    "key": "rzp_test_pTpX66PCviz2tv", // Enter the Key ID generated from the Dashboard
+    "amount": result.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "JD's : Enterprise",
+    "description": "Test Transaction for test order by eshoping website",
+    "image": "https://example.com/your_logo",
+    "order_id": result.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": function (response){
+
+       $.get("confirmOrder",{pid:response.razorpay_payment_id},function(rt){
+            alert(rt)
+        })
+    },
+    "prefill": {
+        "name": "Jignesh Dankhara",
+        "email": "jignesh82@gmail.com",
+        "contact": "7229089630"
+    },
+    "notes": {
+        "address": "A-92 Tulsi Darshan soc Yogi Chowk Surat-6"
+    },
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+    rzp1.open(); 
+    
+    }).catch(err =>{
+        console.log(err);
+    })
+
+}
+
+</script>
 </body>
 
 </html>

@@ -2254,7 +2254,6 @@ ol {
 	right: 4px;
 	top: 4px;
 }
-
 .cart__total__procced {
 	background: #f5f5f5;
 	padding: 40px;
@@ -2277,7 +2276,7 @@ ol {
 	color: #111111;
 	font-weight: 600;
 	overflow: hidden;
-	line-height: 40px;
+	line-height: 30px;
 }
 
 .cart__total__procced ul li span {
