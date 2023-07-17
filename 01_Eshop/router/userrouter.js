@@ -136,7 +136,7 @@ router.get("/shop_cart",auth,async (req,resp)=>{
         }
 
 
-        resp.render("shop_cart",{cartdata:cartdata,total:sum})
+        resp.render("shop_cart",{currentuser : user.uname ,cartdata:cartdata,total:sum})
     }
     catch (error) {
         console.log(error);
